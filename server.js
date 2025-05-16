@@ -42,7 +42,6 @@ app.use(session({
 // If a user is logged in, add the user's doc to req.user and res.locals.user
 app.use(require('./middleware/add-user-to-req-and-locals'));
 
-
 // Routes below
 
 // GET / (root/default) -> Home Page
@@ -57,7 +56,6 @@ app.use('/auth', require('./controllers/auth'));
 
 // Update the unicorns data resource with your "main" resource
 app.use('/unicorns', require('./controllers/unicorns'));
-
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
