@@ -60,4 +60,3 @@ app.use('/unicorns', require('./controllers/unicorns'));
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });
-

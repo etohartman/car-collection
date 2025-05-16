@@ -1,0 +1,37 @@
+const express = require('express');
+const router = express.Router();
+const Car = require('../models/Car');
+const auth = require('../middleware/auth');
+
+router.use(auth);
+
+// Get all cars for user
+router.get('/', async (req, res) => {
+  const cars = await Car.find({ owner: req.session.userId });
+  res.json(cars);
+});
+
+// Add car
+router.post('/', async (req, res) => {
+  const car = new Car({ ...req.body, owner: req.session.userId });
+  await car.save();
+  res.json(car);
+});
+
+// Update car
+router.put('/:id', async (req, res) => {
+  const car = await Car.findOneAndUpdate(
+    { _id: req.params.id, owner: req.session.userId },
+    req.body,
+    { new: true }
+  );
+  res.json(car);
+});
+
+// Delete car
+router.delete('/:id', async (req, res) => {
+  await Car.deleteOne({ _id: req.params.id, owner: req.session.userId });
+  res.json({ success: true });
+});
+
+module.exports = router;
