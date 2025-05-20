@@ -8,13 +8,10 @@ const methodOverride = require("method-override");
 
 const isSignedIn = require('./middleware/is-signed-in.js');
 
-
 // logging middleware
 const morgan = require("morgan");
 const session = require('express-session');
 const authController = require('./controllers/auth.js');
-const recipesController = require('./controllers/recipes.js');
-const ingredientsController = require('./controllers/ingredients.js');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT || 3000;
