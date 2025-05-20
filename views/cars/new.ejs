@@ -1,0 +1,12 @@
+<%- include('../partials/header') %>
+<h1>Add a New Car</h1>
+<form action="/cars" method="POST">
+  <input name="car[make]" placeholder="Make" required />
+  <input name="car[model]" placeholder="Model" required />
+  <input name="car[year]" type="number" placeholder="Year" required />
+  <input name="car[image]" placeholder="Image URL" />
+  <button type="submit">Add Car</button>
+</form>
+<p class="error-msg"><%= error %></p>
+<p class="success-msg"><%= success %></p>
+<%- include('../partials/footer') %>

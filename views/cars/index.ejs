@@ -1,0 +1,13 @@
+<%- include('../partials/header') %>
+<h1>My Car Collection</h1>
+<a href="/cars/new">Add a New Car</a>
+<ul>
+  <% cars.forEach(car => { %>
+    <li>
+      <a href="/cars/<%= car._id %>">
+        <%= car.year %> <%= car.make %> <%= car.model %>
+      </a>
+    </li>
+  <% }) %>
+</ul>
+<%- include('../partials/footer') %>

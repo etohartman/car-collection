@@ -1,0 +1,11 @@
+<%- include('../partials/header') %>
+<h1><%= car.year %> <%= car.make %> <%= car.model %></h1>
+<img src="<%= car.image %>" style="max-width: 300px;" />
+<p><a href="/cars/<%= car._id %>/edit">Edit</a></p>
+<form action="/cars/<%= car._id %>?_method=DELETE" method="POST">
+  <button>Delete</button>
+</form>
+<a href="/cars">Back to Collection</a>
+<p class="error-msg"><%= error %></p>
+<p class="success-msg"><%= success %></p>
+<%- include('../partials/footer') %>
