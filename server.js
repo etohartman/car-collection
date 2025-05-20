@@ -5,9 +5,16 @@ const app = express();
 
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
+
+const isSignedIn = require('./middleware/is-signed-in.js');
+
+
 // logging middleware
 const morgan = require("morgan");
 const session = require('express-session');
+const authController = require('./controllers/auth.js');
+const recipesController = require('./controllers/recipes.js');
+const ingredientsController = require('./controllers/ingredients.js');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT || 3000;
@@ -39,6 +46,10 @@ app.use(session({
   saveUninitialized: true
 }));
 
+app.use(passUserToView);
+app.use('/auth', authController);
+app.use(isSignedIn);
+
 // If a user is logged in, add the user's doc to req.user and res.locals.user
 app.use(require('./middleware/add-user-to-req-and-locals'));
 
@@ -56,6 +67,7 @@ app.use('/auth', require('./controllers/auth'));
 
 // Update the unicorns data resource with your "main" resource
 app.use('/unicorns', require('./controllers/unicorns'));
+
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

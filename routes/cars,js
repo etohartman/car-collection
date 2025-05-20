@@ -1,37 +1,47 @@
 const express = require('express');
 const router = express.Router();
-const Car = require('../models/Car');
-const auth = require('../middleware/auth');
+const Car = require('../models/car');
 
-router.use(auth);
-
-// Get all cars for user
+// Index
 router.get('/', async (req, res) => {
-  const cars = await Car.find({ owner: req.session.userId });
-  res.json(cars);
+  const cars = await Car.find({});
+  res.render('cars/index', { cars });
 });
 
-// Add car
+// New
+router.get('/new', (req, res) => {
+  res.render('cars/new');
+});
+
+// Create
 router.post('/', async (req, res) => {
-  const car = new Car({ ...req.body, owner: req.session.userId });
+  const car = new Car(req.body.car);
   await car.save();
-  res.json(car);
+  res.redirect('/cars');
 });
 
-// Update car
+// Show
+router.get('/:id', async (req, res) => {
+  const car = await Car.findById(req.params.id);
+  res.render('cars/show', { car });
+});
+
+// Edit
+router.get('/:id/edit', async (req, res) => {
+  const car = await Car.findById(req.params.id);
+  res.render('cars/edit', { car });
+});
+
+// Update
 router.put('/:id', async (req, res) => {
-  const car = await Car.findOneAndUpdate(
-    { _id: req.params.id, owner: req.session.userId },
-    req.body,
-    { new: true }
-  );
-  res.json(car);
+  await Car.findByIdAndUpdate(req.params.id, req.body.car);
+  res.redirect(`/cars/${req.params.id}`);
 });
 
-// Delete car
+// Delete
 router.delete('/:id', async (req, res) => {
-  await Car.deleteOne({ _id: req.params.id, owner: req.session.userId });
-  res.json({ success: true });
+  await Car.findByIdAndDelete(req.params.id);
+  res.redirect('/cars');
 });
 
 module.exports = router;
