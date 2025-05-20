@@ -2,46 +2,76 @@ const express = require('express');
 const router = express.Router();
 const Car = require('../models/car');
 
-// Index
+// All cars
 router.get('/', async (req, res) => {
-  const cars = await Car.find({});
-  res.render('cars/index', { cars });
+  try {
+    const cars = await Car.find({});
+    res.render('cars/index', { cars: cars });
+  } catch (err) {
+    console.log(err);
+    res.send("Error fetching cars");
+  }
 });
 
-// New
+// New car form
 router.get('/new', (req, res) => {
   res.render('cars/new');
 });
 
-// Create
+// Create new car
 router.post('/', async (req, res) => {
-  const car = new Car(req.body.car);
-  await car.save();
-  res.redirect('/cars');
+  const carData = req.body;
+  try {
+    await Car.create(carData);
+    res.redirect('/cars');
+  } catch (err) {
+    console.log(err);
+    res.send("Couldn't add car");
+  }
 });
 
-// Show
+// Show one car
 router.get('/:id', async (req, res) => {
-  const car = await Car.findById(req.params.id);
-  res.render('cars/show', { car });
+  try {
+    const car = await Car.findById(req.params.id);
+    res.render('cars/show', { car: car });
+  } catch (err) {
+    console.log(err);
+    res.send("Car not found");
+  }
 });
 
-// Edit
+// Edit form
 router.get('/:id/edit', async (req, res) => {
-  const car = await Car.findById(req.params.id);
-  res.render('cars/edit', { car });
+  try {
+    const car = await Car.findById(req.params.id);
+    res.render('cars/edit', { car: car });
+  } catch (err) {
+    console.log(err);
+    res.send("Couldn't load edit form");
+  }
 });
 
 // Update
 router.put('/:id', async (req, res) => {
-  await Car.findByIdAndUpdate(req.params.id, req.body.car);
-  res.redirect(`/cars/${req.params.id}`);
+  try {
+    await Car.findByIdAndUpdate(req.params.id, req.body);
+    res.redirect(`/cars/${req.params.id}`);
+  } catch (err) {
+    console.log(err);
+    res.send("Update failed");
+  }
 });
 
 // Delete
 router.delete('/:id', async (req, res) => {
-  await Car.findByIdAndDelete(req.params.id);
-  res.redirect('/cars');
+  try {
+    await Car.findByIdAndDelete(req.params.id);
+    res.redirect('/cars');
+  } catch (err) {
+    console.log(err);
+    res.send("Delete failed");
+  }
 });
 
 module.exports = router;
