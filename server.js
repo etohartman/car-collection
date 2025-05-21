@@ -52,12 +52,25 @@ app.get('/', (req, res) => {
 app.get('/views/cars/', (req, res) => {
   res.render('views/cars/index.ejs');
 });
+app.get('/views/cars/new', (req, res) => {
+  res.render('views/cars/new.ejs');
+});
+app.get('/views/cars/:id', (req, res) => {
+  res.render('views/cars/show.ejs');
+});
+app.get('/views/cars/:id/edit', (req, res) => {
+  res.render('views/cars/edit.ejs');
+});
+app.post('/views/cars', (req, res) => {
+  res.redirect('/views/cars');
+});
+app.put('/views/cars/:id', (req, res) => {
+  res.redirect('/views/cars');
+});
+app.delete('/views/cars/:id', (req, res) => {
+  res.redirect('/views/cars');
+});
 
-
-
-// The '/auth' is the "starts with" path.  The
-// paths defined in the router/controller will be
-// appended to the "starts with" path
 app.use('/auth', require('./controllers/auth'));
 
 
