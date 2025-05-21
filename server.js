@@ -5,14 +5,13 @@ const app = express();
 
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
-
 // logging middleware
 const morgan = require("morgan");
 const session = require('express-session');
-const authController = require('./controllers/auth.js');
 
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT || 3000;
+
 mongoose.connect(process.env.MONGODB_URI);
 
 // Listen for the 'connected' event. 
@@ -40,10 +39,6 @@ app.use(session({
   saveUninitialized: true
 }));
 
-app.use(passUserToView);
-app.use('/auth', authController);
-app.use(isSignedIn);
-
 // If a user is logged in, add the user's doc to req.user and res.locals.user
 app.use(require('./middleware/add-user-to-req-and-locals'));
 
@@ -58,9 +53,6 @@ app.get('/', (req, res) => {
 // paths defined in the router/controller will be
 // appended to the "starts with" path
 app.use('/auth', require('./controllers/auth'));
-
-// Update the unicorns data resource with your "main" resource
-app.use('/unicorns', require('./controllers/unicorns'));
 
 
 app.listen(port, () => {
