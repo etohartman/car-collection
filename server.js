@@ -49,6 +49,12 @@ app.get('/', (req, res) => {
   res.render('home.ejs');
 });
 
+app.get('/views/cars/', (req, res) => {
+  res.render('views/cars/index.ejs');
+});
+
+
+
 // The '/auth' is the "starts with" path.  The
 // paths defined in the router/controller will be
 // appended to the "starts with" path
