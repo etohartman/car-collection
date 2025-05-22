@@ -73,7 +73,6 @@ app.delete('/views/cars/:id', (req, res) => {
 
 app.use('/auth', require('./controllers/auth'));
 
-
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);
 });
