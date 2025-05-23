@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/main.css">
-  <title>Express Starter</title>
+  <title>Car Collection App</title>
 </head>
 <body>
   <nav>
     <a href="/">🏠</a>
     <div>
-      <a href="/views/cars/">ALL CARS</a>
+      <a href="/cars">ALL CARS</a>
       <% if (user) { %>
-        <a href="/views/cars/">ADD CAR</a>
+        <a href="/cars">ADD CAR</a>
         <a href="/auth/sign-out">SIGN OUT</a>
         <span><%= user.name %></span>
       <% } else { %>

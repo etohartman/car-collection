@@ -9,6 +9,11 @@ const methodOverride = require("method-override");
 const morgan = require("morgan");
 const session = require('express-session');
 
+const router = express.Router();
+
+const carRoutes = require('./models/car');
+const Car = require('./models/car');
+
 // Set the port from environment variable or default to 3000
 const port = process.env.PORT || 3000;
 
@@ -49,29 +54,8 @@ app.get('/', (req, res) => {
   res.render('home.ejs');
 });
 
-app.get('/views/cars/', (req, res) => {
-  res.render('views/cars/index.ejs');
-});
-app.get('/views/cars/new', (req, res) => {
-  res.render('views/cars/new.ejs');
-});
-app.get('/views/cars/:id', (req, res) => {
-  res.render('views/cars/show.ejs');
-});
-app.get('/views/cars/:id/edit', (req, res) => {
-  res.render('views/cars/edit.ejs');
-});
-app.post('/views/cars', (req, res) => {
-  res.redirect('/views/cars');
-});
-app.put('/views/cars/:id', (req, res) => {
-  res.redirect('/views/cars');
-});
-app.delete('/views/cars/:id', (req, res) => {
-  res.redirect('/views/cars');
-});
-
 app.use('/auth', require('./controllers/auth'));
+app.use('/cars', require('./controllers/cars'));
 
 app.listen(port, () => {
   console.log(`The express app is ready on port ${port}!`);

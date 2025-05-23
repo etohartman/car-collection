@@ -18,12 +18,12 @@ footer {
   align-items: center;
   padding: 2vmin;
   font-size: 2vh;
-  color: lightslategray;
+  color: rgb(10, 85, 161);
 }
 
 nav a {
   text-decoration: none;
-  color: slategray;
+  color: rgb(10, 85, 161);
   background-color: white;
   padding: 1vmin;
   border-radius: 1vmin;
@@ -37,7 +37,7 @@ nav a {
 
 nav span {
   font-size: 1.5vmin;
-  color: lightslategray;
+  color: rgb(216, 182, 30);
 }
 
 main {
@@ -70,10 +70,10 @@ form button[type='submit'] {
 }
 
 button:hover {
-  background-color: lightslategray;
+  background-color: rgb(35, 121, 207);
   color: white;
 }
 
 .error-msg {
-  color: rgb(223, 116, 116);
+  color: rgb(185, 14, 14);
 }
